@@ -10,6 +10,7 @@ defmodule Anaconda.Application do
     children = [
       # Starts a worker by calling: Anaconda.Worker.start_link(arg)
       # {Anaconda.Worker, arg},
+      Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: 4072])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
