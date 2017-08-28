@@ -11,7 +11,7 @@ defmodule Anaconda.Router do
     prefix = Application.fetch_env!(:anaconda, :url_prefix)
     suffix = Anaconda.random_string()
     url = "#{prefix}/#{suffix}\n"
-    :ets.insert(:urls, {suffix, url_to_shorten})
+    :dets.insert(:urls, {suffix, url_to_shorten})
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, url)
@@ -21,7 +21,7 @@ defmodule Anaconda.Router do
     case conn.path_info do
       [encoded] ->
         suffix = URI.decode(to_string(encoded))
-        case :ets.lookup(:urls, suffix) do
+        case :dets.lookup(:urls, suffix) do
             [] ->
               send_resp(conn, 404, "Invalid path.\n")
             [{^suffix, url}] ->

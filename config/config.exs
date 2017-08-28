@@ -11,7 +11,9 @@ use Mix.Config
 # You can configure your application as:
 #
 config :anaconda,
-  url_prefix: "https://clkc.cc"
+# url_prefix: "https://clkc.cc"
+  url_prefix: "http://localhost",
+  port: 4072
 #
 # and access this configuration in your application as:
 #

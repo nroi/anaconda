@@ -7,13 +7,15 @@ defmodule Anaconda.Application do
 
   def start(_type, _args) do
     # List all child processes to be supervised
+    port = Application.fetch_env!(:anaconda, :port)
     children = [
       # Starts a worker by calling: Anaconda.Worker.start_link(arg)
       # {Anaconda.Worker, arg},
-      Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: 4072])
+      Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: port])
     ]
 
-    :urls = :ets.new(:urls, [:set, :named_table, :public])
+    {:ok, name} = :dets.open_file(:urls, file: '/tmp/urls')
+    # :urls = :ets.new(:urls, [:set, :named_table, :public])
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
