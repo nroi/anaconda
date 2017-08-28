@@ -13,6 +13,8 @@ defmodule Anaconda.Application do
       Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: 4072])
     ]
 
+    :urls = :ets.new(:urls, [:set, :named_table, :public])
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Anaconda.Supervisor]

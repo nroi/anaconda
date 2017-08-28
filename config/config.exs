@@ -10,7 +10,8 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :anaconda, key: :value
+config :anaconda,
+  url_prefix: "https://clkc.cc"
 #
 # and access this configuration in your application as:
 #
