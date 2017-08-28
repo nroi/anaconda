@@ -18,20 +18,17 @@ defmodule Anaconda.Router do
   end
 
   match _ do
-    # TODO isn't there a better way to just get the last and only component of the url?
     case conn.path_info do
-      encoded ->
+      [encoded] ->
         suffix = URI.decode(to_string(encoded))
-        Logger.debug "suffix: #{inspect suffix}"
         case :ets.lookup(:urls, suffix) do
             [] ->
               send_resp(conn, 404, "Invalid path.\n")
-            [{^suffix, suffix}] ->
-              # TODO redirect
-              Logger.debug "suffix: #{inspect suffix}"
+            [{^suffix, url}] ->
+              Logger.debug "Redirect to #{url}"
               conn
-              |> put_resp_content_type("text/html")
-              |> send_resp(200, suffix)
+              |> put_resp_header("location", url)
+              |> send_resp(301, suffix)
         end
       _ -> send_resp(conn, 404, "Invalid path.")
     end
