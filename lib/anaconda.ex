@@ -14,7 +14,8 @@ defmodule Anaconda do
     List.to_tuple(chars)
   end
 
-  def random_string(len \\ 5) do
+  def random_string() do
+    len = Application.fetch_env!(:anaconda, :length)
     random_string("", len, chars())
   end
 

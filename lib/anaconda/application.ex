@@ -14,8 +14,7 @@ defmodule Anaconda.Application do
       Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: port])
     ]
 
-    {:ok, name} = :dets.open_file(:urls, file: '/tmp/urls')
-    # :urls = :ets.new(:urls, [:set, :named_table, :public])
+    {:ok, _name} = :dets.open_file(:urls, file: '/tmp/urls')
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

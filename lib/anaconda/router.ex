@@ -11,7 +11,7 @@ defmodule Anaconda.Router do
     prefix = Application.fetch_env!(:anaconda, :url_prefix)
     suffix = Anaconda.random_string()
     url = "#{prefix}/#{suffix}\n"
-    :dets.insert(:urls, {suffix, url_to_shorten})
+    :ok = :dets.insert(:urls, {suffix, url_to_shorten})
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, url)

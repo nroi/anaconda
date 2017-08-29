@@ -13,6 +13,7 @@ use Mix.Config
 config :anaconda,
 # url_prefix: "https://clkc.cc"
   url_prefix: "http://localhost",
+  length: 5, # the length of the trailing random string attached to the created URL
   port: 4072
 #
 # and access this configuration in your application as:
