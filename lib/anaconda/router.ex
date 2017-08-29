@@ -5,7 +5,7 @@ defmodule Anaconda.Router do
   plug :match
   plug :dispatch
 
-  get "/" do
+  post "/" do
     url_to_shorten = :proplists.get_value("shorten-url", conn.req_headers)
     Logger.debug "Shorten URL: #{inspect url_to_shorten}"
     prefix = Application.fetch_env!(:anaconda, :url_prefix)
