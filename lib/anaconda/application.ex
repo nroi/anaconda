@@ -14,18 +14,11 @@ defmodule Anaconda.Application do
 
   def start(_type, _args) do
     cache_dir = create_cache_dir()
-    # List all child processes to be supervised
     port = Application.fetch_env!(:anaconda, :port)
     children = [
-      # Starts a worker by calling: Anaconda.Worker.start_link(arg)
-      # {Anaconda.Worker, arg},
       Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: port])
     ]
-
     {:ok, _name} = :dets.open_file(:urls, file: to_charlist(Path.join(cache_dir, "urls.dat")))
-
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Anaconda.Supervisor]
     Supervisor.start_link(children, opts)
   end
