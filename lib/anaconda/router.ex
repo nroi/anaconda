@@ -14,7 +14,7 @@ defmodule Anaconda.Router do
     end
     short_url = case result do
       {:ok, suffix} ->
-        Logger.debug "Use existing suffix: #{inspect suffix}"
+        Logger.debug "Use existing suffix: #{inspect suffix} for URL #{long_url}"
         "#{prefix}/#{suffix}\n"
       :not_found ->
         Logger.debug "Shorten URL: #{inspect long_url}"
