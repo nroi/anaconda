@@ -24,7 +24,7 @@ defmodule Anaconda.Mixfile do
     [
       {:cowboy, "~> 1.1"},
       {:plug, "~> 1.4"},
-      {:distillery, "~> 1.4", runtime: false}
+      {:distillery, "~> 1.5", runtime: false}
     ]
   end
 end
