@@ -9,3 +9,5 @@ config :anaconda,
 
   # which port to  listen on
   port: 4072
+
+import_config "#{Mix.env}.exs"
