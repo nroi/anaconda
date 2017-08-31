@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 # A graceful shutdown may take a while, especially on low-end devices like the RPi.
-TimeoutSec=10
+TimeoutSec=90
 ExecStart=/bin/sh %h/workspace/elixir/anaconda/_build/prod/rel/anaconda/bin/anaconda foreground
 ExecStop=/bin/sh %h/workspace/elixir/anaconda/_build/prod/rel/anaconda/bin/anaconda stop
 
