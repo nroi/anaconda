@@ -4,14 +4,10 @@ After=network.target
 
 [Service]
 Type=simple
-# systemd kills the entire cgroup by default, resulting in the error message "Node is not running!" and a
-# non-zero exit code. Killing the main process is sufficient to initiate a clean shutdown and will not
-# result in error messages.
-KillMode=process
-SuccessExitStatus=143
 # A graceful shutdown may take a while, especially on low-end devices like the RPi.
 TimeoutSec=10
 ExecStart=/bin/sh %h/workspace/elixir/anaconda/_build/prod/rel/anaconda/bin/anaconda foreground
+ExecStop=/bin/sh %h/workspace/elixir/anaconda/_build/prod/rel/anaconda/bin/anaconda stop
 
 [Install]
 WantedBy=multi-user.target
