@@ -5,17 +5,22 @@ Take a look at `config/config.exs`.
 
 ## Running
 
-Run via iex: ```iex -S mix``` or create a release first:
-```shell
-mix release.init
-MIX_ENV=prod mix release --env=prod
-_build/prod/rel/anaconda/bin/anaconda foreground
-```
+1. via IEx:
+  Just run ```iex -S mix```
 
-A systemd service file is included which runs the command `\_build/prod/rel/anaconda/bin/anaconda foreground`.
-If you choose to start anaconda with systemd instead of iex, you will need to update the path
-mentioned in `ExecStart`. Also note that the systemd service file is meant to be used as a systemd
-user service.
+or
+
+2. via systemd:
+  first, create a release:
+  ```shell
+  mix release.init
+  MIX_ENV=prod mix release --env=prod
+  ```
+  
+  Then, use the included systemd file which runs the command `_build/prod/rel/anaconda/bin/anaconda foreground`.
+  If you choose to start anaconda with systemd, you will need to update the path
+  mentioned in `ExecStart`. Also note that the systemd service file is meant to be used as a systemd
+  user service.
 
 ## Usage
 
