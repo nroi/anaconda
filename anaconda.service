@@ -10,4 +10,4 @@ ExecStart=/bin/sh %h/workspace/elixir/anaconda/_build/prod/rel/anaconda/bin/anac
 ExecStop=/bin/sh %h/workspace/elixir/anaconda/_build/prod/rel/anaconda/bin/anaconda stop
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
