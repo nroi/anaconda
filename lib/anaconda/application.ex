@@ -15,9 +15,11 @@ defmodule Anaconda.Application do
   def start(_type, _args) do
     cache_dir = create_cache_dir()
     port = Application.fetch_env!(:anaconda, :port)
+
     children = [
-      Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], [port: port])
+      Plug.Adapters.Cowboy.child_spec(:http, Anaconda.Router, [], port: port)
     ]
+
     {:ok, _name} = :dets.open_file(:urls, file: to_charlist(Path.join(cache_dir, "urls.dat")))
     opts = [strategy: :one_for_one, name: Anaconda.Supervisor]
     Supervisor.start_link(children, opts)

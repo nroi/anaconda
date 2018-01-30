@@ -1,15 +1,12 @@
 defmodule Anaconda do
+  defp range_from_chars([start], [endd]) do
+    start..endd
+  end
 
   def chars() do
-    first_range = case {'a', 'z'} do
-      {[start], [endd]} -> start..endd
-    end
-    second_range = case {'A', 'Z'} do
-      {[start], [endd]} -> start..endd
-    end
-    third_range = case {'0', '9'} do
-      {[start], [endd]} -> start..endd
-    end
+    first_range = range_from_chars('a', 'z')
+    second_range = range_from_chars('A', 'Z')
+    third_range = range_from_chars('0', '9')
     chars = Enum.to_list(first_range) ++ Enum.to_list(second_range) ++ Enum.to_list(third_range)
     List.to_tuple(chars)
   end
@@ -20,10 +17,10 @@ defmodule Anaconda do
   end
 
   def random_string(s, len, _chars) when byte_size(s) >= len, do: s
+
   def random_string(s, len, chars) when byte_size(s) < len do
     idx = :rand.uniform(tuple_size(chars))
     new_string = s <> to_string([elem(chars, idx - 1)])
     random_string(new_string, len, chars)
   end
-
 end
