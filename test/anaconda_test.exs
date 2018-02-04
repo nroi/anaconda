@@ -3,7 +3,7 @@ defmodule AnacondaTest do
   doctest Anaconda
 
   test "string_from_index returns correct numbers" do
-    chars = Anaconda.range_from_chars('0', '9') |> Enum.to_list |> List.to_tuple
+    chars = Anaconda.range_from_chars('0', '9') |> Enum.to_list() |> List.to_tuple()
     len = 4
     assert "0000" == Anaconda.string_from_index(0, chars, len)
     assert "0001" == Anaconda.string_from_index(1, chars, len)
@@ -16,7 +16,7 @@ defmodule AnacondaTest do
   end
 
   test "string_from_index returns correct character strings" do
-    chars = Anaconda.range_from_chars('a', 'z') |> Enum.to_list |> List.to_tuple
+    chars = Anaconda.range_from_chars('a', 'z') |> Enum.to_list() |> List.to_tuple()
     len = 2
     assert "aa" == Anaconda.string_from_index(0, chars, len)
     assert "ab" == Anaconda.string_from_index(1, chars, len)

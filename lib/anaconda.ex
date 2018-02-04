@@ -22,7 +22,8 @@ defmodule Anaconda do
     string_from_index(index, c, len)
   end
 
-  def string_from_index(index, chars, len) when is_integer(index) and is_tuple(chars) and is_integer(len) do
+  def string_from_index(index, chars, len)
+      when is_integer(index) and is_tuple(chars) and is_integer(len) do
     if index > :math.pow(tuple_size(chars), len) do
       raise "Index out of range"
     else

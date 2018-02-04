@@ -12,6 +12,7 @@ defmodule Anaconda.Router do
     short_url = "#{prefix}/#{suffix}\n"
     Logger.debug("Shorten URL: #{inspect(long_url)}")
     :ok = :dets.insert(:urls, {suffix, long_url})
+
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, short_url)
