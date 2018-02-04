@@ -2,33 +2,27 @@ defmodule AnacondaTest do
   use ExUnit.Case
   doctest Anaconda
 
-  test "the truth" do
-    assert true
+  test "string_from_index returns correct numbers" do
+    chars = Anaconda.range_from_chars('0', '9') |> Enum.to_list |> List.to_tuple
+    len = 4
+    assert "0000" == Anaconda.string_from_index(0, chars, len)
+    assert "0001" == Anaconda.string_from_index(1, chars, len)
+    assert "0002" == Anaconda.string_from_index(2, chars, len)
+    assert "0009" == Anaconda.string_from_index(9, chars, len)
+    assert "0010" == Anaconda.string_from_index(10, chars, len)
+    assert "0100" == Anaconda.string_from_index(100, chars, len)
+    assert "1001" == Anaconda.string_from_index(1001, chars, len)
+    assert "1002" == Anaconda.string_from_index(1002, chars, len)
   end
 
-  test "con numerical" do
-    tuples = Anaconda.range_from_chars('0', '9') |> Enum.to_list |> List.to_tuple
-    modulus = tuple_size(tuples)
-    # TODO it seems the modulus is always tuple_size(tuples), so why pass the argument to the
-    # function?
-    assert "0" == Anaconda.con(0, modulus, tuples)
-    assert "1" == Anaconda.con(1, modulus, tuples)
-    assert "2" == Anaconda.con(2, modulus, tuples)
-    assert "9" == Anaconda.con(9, modulus, tuples)
-    assert "10" == Anaconda.con(10, modulus, tuples)
-    assert "100" == Anaconda.con(100, modulus, tuples)
-    assert "1001" == Anaconda.con(1001, modulus, tuples)
-    assert "1002" == Anaconda.con(1002, modulus, tuples)
-  end
-
-  test "con alphabetical" do
-    tuples = Anaconda.range_from_chars('a', 'z') |> Enum.to_list |> List.to_tuple
-    modulus = tuple_size(tuples)
-    assert "a" == Anaconda.con(0, modulus, tuples)
-    assert "b" == Anaconda.con(1, modulus, tuples)
-    assert "c" == Anaconda.con(2, modulus, tuples)
-    assert "aa" == Anaconda.con(26, modulus, tuples)
-    assert "ab" == Anaconda.con(27, modulus, tuples)
-    assert "aaa" == Anaconda.con(52, modulus, tuples)
+  test "string_from_index returns correct character strings" do
+    chars = Anaconda.range_from_chars('a', 'z') |> Enum.to_list |> List.to_tuple
+    len = 2
+    assert "aa" == Anaconda.string_from_index(0, chars, len)
+    assert "ab" == Anaconda.string_from_index(1, chars, len)
+    assert "ac" == Anaconda.string_from_index(2, chars, len)
+    assert "ba" == Anaconda.string_from_index(26, chars, len)
+    assert "bb" == Anaconda.string_from_index(27, chars, len)
+    assert "ca" == Anaconda.string_from_index(52, chars, len)
   end
 end
