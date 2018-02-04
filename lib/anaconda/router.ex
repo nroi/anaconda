@@ -8,26 +8,10 @@ defmodule Anaconda.Router do
   post "/" do
     prefix = Application.fetch_env!(:anaconda, :url_prefix)
     long_url = :proplists.get_value("shorten-url", conn.req_headers)
-
-    result =
-      case :dets.match(:urls, {:"$1", long_url}) do
-        [[suffix]] -> {:ok, suffix}
-        [] -> :not_found
-      end
-
-    short_url =
-      case result do
-        {:ok, suffix} ->
-          Logger.debug("Use existing suffix: #{inspect(suffix)} for URL #{long_url}")
-          "#{prefix}/#{suffix}\n"
-
-        :not_found ->
-          Logger.debug("Shorten URL: #{inspect(long_url)}")
-          suffix = Anaconda.random_string()
-          :ok = :dets.insert(:urls, {suffix, long_url})
-          "#{prefix}/#{suffix}\n"
-      end
-
+    suffix = Anaconda.string_hash_fixed_length(long_url)
+    short_url = "#{prefix}/#{suffix}\n"
+    Logger.debug("Shorten URL: #{inspect(long_url)}")
+    :ok = :dets.insert(:urls, {suffix, long_url})
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, short_url)

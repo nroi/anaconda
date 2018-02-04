@@ -10,17 +10,16 @@ defmodule Anaconda do
     List.to_tuple(chars)
   end
 
-  def random_string() do
+  def string_hash_fixed_length(s) do
     len = Application.fetch_env!(:anaconda, :length)
-    random_string("", len, chars())
+    string_hash_fixed_length(s, len)
   end
 
-  def random_string(s, len, _chars) when byte_size(s) >= len, do: s
-
-  def random_string(s, len, chars) when byte_size(s) < len do
-    idx = :rand.uniform(tuple_size(chars))
-    new_string = s <> to_string([elem(chars, idx - 1)])
-    random_string(new_string, len, chars)
+  def string_hash_fixed_length(s, len) do
+    c = chars()
+    max_index = trunc(:math.pow(tuple_size(c), len))
+    index = rem(:crypto.bytes_to_integer(:crypto.hash(:sha, s)), max_index)
+    string_from_index(index, c, len)
   end
 
   def string_from_index(index, chars, len) when is_integer(index) and is_tuple(chars) and is_integer(len) do
